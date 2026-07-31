@@ -1,0 +1,6 @@
+openai-whisper
+jiwer
+datasets
+streamlit
+pandas
+soundfile
