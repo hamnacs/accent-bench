@@ -4,9 +4,9 @@
 
 ## Motivation
 
-While co-developing an AI-Enabled Hospital Information Management System (deployed at two hospitals in Pakistan) featuring an autonomous voice-booking agent, I noticed the underlying speech recognition pipeline seemed to degrade noticeably for accented and code-switched speech — a pattern that never got formally measured, just anecdotally observed while debugging.
+While co-developing an AI-Enabled Hospital Information Management System featuring an autonomous voice-booking agent, I noticed the underlying speech recognition pipeline seemed to degrade noticeably for accented and code-switched speech, a pattern that never got formally measured, just anecdotally observed while debugging.
 
-AccentBench is a small, reproducible study built to actually measure that observation: how does a widely-used ASR model (Whisper) perform across different English accents, and how does it handle Hindi-English code-switching — a linguistic pattern closely related to the Urdu-English speech my FYP's voice agent needed to handle?
+AccentBench is a small, reproducible study built to actually measure that observation: how does a widely-used ASR model (Whisper) perform across different English accents, and how does it handle Hindi-English code-switching: a linguistic pattern closely related to the Urdu-English speech my FYP's voice agent needed to handle?
 
 ## Summary of Findings
 
