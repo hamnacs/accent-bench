@@ -1,0 +1,31 @@
+﻿experiment,wer,cs_level,category,ground_truth,prediction
+small_forced_ko,2.0,word,language education,"Wait, so 오빠 doesn't just mean “older brother”?",ders��� 어 Development 답답하다А 근데 야 야etus 정 validation redemption 그리고 벌써 nex 괜찮은 게 그
+base_forced_ko,1.875,phrase,everyday conversation,오늘 presentation 준비하는데 PowerPoint slide가 너무 messy해서 frustrating하다,Today's presentation is the first-playing and the last slide the part is so isn't too much.
+small_forced_ko,1.6666666666666667,phrase,everyday conversation,She's totally 눈치 보기 professional level이야.,조준이가 이 소설 Commerce 어떤 소리를 손하려고max 소리를 MotherfНу과 proper
+base_forced_ko,1.3333333333333333,sentence,entertainment,I really love faker. 불사대마왕 최고에요!,아 리 COSTA Meet my and my 아
+small_auto,1.3333333333333333,phrase,everyday conversation,She's totally 눈치 보기 professional level이야.,Ela é totalmente adiantiva para a profissional laboria.
+base_auto,1.2857142857142858,word,business,다음 meeting에서 stakeholder들과 timeline을 discussion하고 priority를 정해야겠어요,"다음 밀링은 스티커더, 덜과 타임 라이너 디스컷션, 그리고 Priority를 정해야됬어요."
+small_forced_ko,1.1428571428571428,word,business,다음 meeting에서 stakeholder들과 timeline을 discussion하고 priority를 정해야겠어요,"다음 미팅에서 스틱 홀더, 들과, 타임라이너, 디스쿠션하고, prior리를 정해야겠어요."
+small_auto,1.1428571428571428,word,business,다음 meeting에서 stakeholder들과 timeline을 discussion하고 priority를 정해야겠어요,"다음 미팅에서 스틱 홀더, 들과, 타임라이너, 디스쿠션하고, prior리를 정해야겠어요."
+base_auto,1.1,phrase,academic,model training에는 stochastic gradient descent optimizer와 momentum scheduler를 병합하여 적용하였다.,"모델 트레이닝에는 스테오케스틱, 그리니언, 디스엔, 오브 디메시어와 모델, 스키즈, 룰을 병화파이어 적용하였다."
+base_forced_ko,1.1,phrase,academic,model training에는 stochastic gradient descent optimizer와 momentum scheduler를 병합하여 적용하였다.,"모델 트레이닝에는 스테오케스틱, 그리니언, 디스엔, 오브 디메시어와 모델, 스키즈, 룰을 병화파이어 적용하였다."
+base_forced_ko,1.1,phrase,business,think outside the box 하라는 건 좋은데 현실성도 꼭 고려해야지.,"Thank you outside the box, I love living in the living room. 현실성도 꼭 고여해야지."
+base_auto,1.1,phrase,business,think outside the box 하라는 건 좋은데 현실성도 꼭 고려해야지.,"Thank you outside the box, I love living in the living room. 현실성도 꼭 고여해야지."
+small_forced_ko,1.0833333333333333,word,everyday conversation,Let's go to the 노래방 tonight and sing some 발라드 songs together.,오늘 danger % recalled UFOит 지금 밤acing 입션 5 이승 먼저 유정 반복
+small_forced_ko,1.0,phrase,everyday conversation,"I just want a day with 맛있는 거 먹고 아무것도 안 하기, is that too much to ask?",먹을 opponent are 아혜 늦은 것 같아요agara Discovery
+small_forced_ko,1.0,word,business,We're pitching to a major 재벌 for Series B funding next Tuesday.,다음 drunk
+small_forced_ko,1.0,word,language education,So what's the difference between 사랑 and 연애?,사랑과 연애와의 Halloween 저녁
+base_auto,1.0,phrase,software development,"He said the fix is on the way, 그래서 일단은 current version 유지하자.",다니다 저는 현재 fix이
+base_auto,1.0,word,medical,"""외상 이후 immnoglbulin과 interferon의 생성이 저하되어 환자가 감염과 폐혈증에 취약해질 수 있다.""",외 trilogy 마� estate
+base_auto,1.0,phrase,academic,The research methodology combines contemporary biotechnology approaches with 김치 발효 과정의 미생물학적 원리 to develop enhanced probiotic cultivation techniques.,틀위서치 마스 Кол��än첨둔 나사
+base_auto,1.0,sentence,entertainment,I really love faker. 불사대마왕 최고에요!,I really love faker. To fathom I want to wear.
+small_forced_ko,1.0,word,entertainment,"The movie had great visuals, but it was missing that essential 감동.",인터ял Kop Hansa
+small_forced_ko,1.0,phrase,academic,The research methodology combines contemporary biotechnology approaches with 김치 발효 과정의 미생물학적 원리 to develop enhanced probiotic cultivation techniques.,aat миним Ry Kat
+small_forced_ko,1.0,word,business,The new CEO wants to implement a 수직적 hierarchy structure similar to traditional 대기업 management styles.,주�しく
+base_auto,1.0,phrase,everyday conversation,"I just want a day with 맛있는 거 먹고 아무것도 안 하기, is that too much to ask?",私は私の手を持っていることをあなたの手を持っています。私は私の手を持っていることをあなたの手を持っています。
+base_auto,1.0,phrase,language education,"The expression ""천천히 말씀해 주실 수 있나요?"" is a polite way to ask someone to “could you please speak slowly,” and it's useful for beginners.",force에 패� destroy의
+small_forced_ko,1.0,word,business,The new intern is struggling to adapt to our company's strict 선후배 hierarchy system.,자녀벤-urugimTaian 그린urugim-rg-twin-twealWH Path ancora 더 앞으로 어디를 licenses 다른
+small_forced_ko,1.0,word,language education,"수고하셨습니다 is what Koreans say when someone finishes work or leaves the office—it's like ""good job"" or ""thank you for your hard work,"" but it's used much more frequently and shows respect for any effort, even small tasks.",수고하셨습니다.chter fizsef 이 Palace Angular 음악
+small_forced_ko,1.0,phrase,language education,"I heard my friend say 진짜 대박! when she saw the concert tickets—does it mean something like ""totally awesome?""",ata data ker sl constellation Thor Leeeles
+small_forced_ko,1.0,phrase,everyday conversation,"She's like ""진짜 바빠 죽겠어"" but then spends three hours watching TikTok videos.",진짜 바빠줄게�
+small_forced_ko,1.0,word,travel and culture,Koreans often visit their hometowns during 추석 to hold ancestral rites.,�介 resità 비oki 허베

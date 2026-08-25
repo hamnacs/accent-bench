@@ -1,0 +1,5 @@
+﻿experiment,model,language_mode,clips,mean_wer,median_wer,min_wer,max_wer
+base_auto,base,auto,100,0.5648340568211299,0.5714285714285714,0.0,1.2857142857142858
+base_forced_ko,base,forced_ko,100,0.6729356227788683,0.6339712918660287,0.0,1.875
+small_auto,small,auto,100,0.4209365895376532,0.3333333333333333,0.0,1.3333333333333333
+small_forced_ko,small,forced_ko,100,0.6216028322915723,0.625,0.0,2.0
