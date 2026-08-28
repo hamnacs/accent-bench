@@ -1,44 +1,46 @@
 # AccentBench
 
-**Measuring accent, language-identification, and code-switching robustness in Whisper ASR.**
+Measuring accent, language-identification, and code-switching robustness in Whisper ASR.
 
 AccentBench is a small, reproducible study investigating how automatic speech recognition systems behave under accented, multilingual, and code-switched speech.
 
-The project began from a practical observation while developing an **AI-enabled Hospital Information Management System in Pakistan with an autonomous voice-booking agent**: speech recognition appeared to degrade for accented and code-switched speech. AccentBench turns that observation into measurable experiments.
+The project began from a practical observation while developing an AI-enabled Hospital Information Management System in Pakistan with an autonomous voice-booking agent: speech recognition appeared to degrade for accented and code-switched speech. AccentBench turns that observation into measurable experiments.
+
+## Research Paper
+
+The full paper describing AccentBench's methodology, experiments, results, error analysis, and limitations is available here: [Read the paper](docs/AccentBench_Paper.pdf) ([source](docs/AccentBench_Paper.md))
 
 ## Research Questions
 
 The benchmark currently evaluates:
 
-1. **Accent robustness** — How does Whisper perform across different English accent groups?
-2. **Language identification** — How often does Whisper incorrectly identify accented English as another language?
-3. **Code-switching** — How well does Whisper transcribe speech containing multiple languages within the same utterance?
-4. **Language conditioning** — Does explicitly specifying the expected language improve transcription accuracy?
+* **Accent robustness** — How does Whisper perform across different English accent groups?
+* **Language identification** — How often does Whisper incorrectly identify accented English as another language?
+* **Code-switching** — How well does Whisper transcribe speech containing multiple languages within the same utterance?
+* **Language conditioning** — Does explicitly specifying the expected language improve transcription accuracy?
 
 ## Why This Matters
 
 Speech recognition errors are not always caused by poor acoustic transcription alone. In multilingual settings, an ASR system may incorrectly identify the spoken language, convert words from one language into another script, or behave differently when the expected language is explicitly specified.
 
-AccentBench separates these failure modes instead of relying only on overall Word Error Rate (WER). This makes it possible to examine not only **whether** Whisper makes an error, but also **what kind of error occurs and under which linguistic conditions**.
+AccentBench separates these failure modes instead of relying only on overall Word Error Rate (WER). This makes it possible to examine not only whether Whisper makes an error, but also what kind of error occurs and under which linguistic conditions.
 
----
+## Key Findings
 
-# Key Findings
-
-## Whisper performs substantially better with its larger `small` model
+### Whisper performs substantially better with its larger small model
 
 Across the HiKE Korean-English benchmark, Whisper-small with automatic language detection achieved the lowest WER:
 
-| Configuration                 |   Mean WER | Median WER |
-| ----------------------------- | ---------: | ---------: |
-| **Whisper-small + automatic** | **0.4209** | **0.3333** |
-| Whisper-base + automatic      |     0.5648 |     0.5714 |
-| Whisper-small + forced Korean |     0.6216 |     0.6250 |
-| Whisper-base + forced Korean  |     0.6729 |     0.6340 |
+| Configuration                 | Mean WER | Median WER |
+| ----------------------------- | -------: | ---------: |
+| Whisper-small + automatic     |   0.4209 |     0.3333 |
+| Whisper-base + automatic      |   0.5648 |     0.5714 |
+| Whisper-small + forced Korean |   0.6216 |     0.6250 |
+| Whisper-base + forced Korean  |   0.6729 |     0.6340 |
 
-Under automatic language detection, moving from Whisper-base to Whisper-small reduced mean WER by approximately **25.5%**.
+Under automatic language detection, moving from Whisper-base to Whisper-small reduced mean WER by approximately 25.5%.
 
-## Automatic language detection outperformed forced Korean on the HiKE benchmark
+### Automatic language detection outperformed forced Korean on the HiKE benchmark
 
 For Whisper-small:
 
@@ -50,42 +52,40 @@ For Whisper-base:
 
 **0.5648 → 0.6729 WER**
 
-This corresponds to a relative WER reduction of approximately **32.3%** for Whisper-small and **16.1%** for Whisper-base when automatic detection is used instead of forcing Korean.
+This corresponds to a relative WER reduction of approximately 32.3% for Whisper-small and 16.1% for Whisper-base when automatic detection is used instead of forcing Korean.
 
 This result is specific to the evaluated Korean-English code-switched dataset. It should not be interpreted as evidence that automatic language detection is universally better than language forcing for Korean ASR.
 
-## Code-switching level affects transcription difficulty
+### Code-switching level affects transcription difficulty
 
 Under the best configuration, Whisper-small with automatic language detection:
 
-| Code-switching level |   Mean WER |
-| -------------------- | ---------: |
-| **Word**             | **0.3458** |
-| Sentence             |     0.4107 |
-| Phrase               |     0.4802 |
+| Code-switching level | Mean WER |
+| -------------------- | -------: |
+| Word                 |   0.3458 |
+| Sentence             |   0.4107 |
+| Phrase               |   0.4802 |
 
 Phrase-level code-switching was the most difficult category in this evaluation.
 
-## English token preservation is substantially better with automatic detection
+### English token preservation is substantially better with automatic detection
 
 The benchmark also measures whether English words embedded in Korean speech remain recognizable as English tokens rather than being converted into Korean phonetic spellings.
 
 | Configuration                 | English token preservation |
 | ----------------------------- | -------------------------: |
-| **Whisper-small + automatic** |                  **72.6%** |
+| Whisper-small + automatic     |                      72.6% |
 | Whisper-base + automatic      |                      56.9% |
 | Whisper-base + forced Korean  |                      36.4% |
 | Whisper-small + forced Korean |                      27.7% |
 
 This provides a complementary view of code-switching robustness that ordinary WER alone does not capture.
 
----
+## Track 1 — Accent Robustness
 
-# Track 1 — Accent Robustness
+### Accent-driven Word Error Rate
 
-## Accent-driven Word Error Rate
-
-AccentBench evaluated **600 utterances**, with 100 samples from each of six accent groups in the [DTU54DL/common-accent](https://huggingface.co/datasets/DTU54DL/common-accent) dataset.
+AccentBench evaluated 600 utterances, with 100 samples from each of six accent groups in the DTU54DL/common-accent dataset.
 
 | Accent              | WER (Whisper-base) | WER (Whisper-small) |
 | ------------------- | -----------------: | ------------------: |
@@ -100,42 +100,40 @@ Scaling from Whisper-base to Whisper-small improved WER for every evaluated acce
 
 The South Asian category combines Indian, Pakistani, and Sri Lankan English. It therefore should not be interpreted as a Pakistani-English-only result.
 
-## Language Misidentification
+### Language Misidentification
 
-A subset of accented-English clips triggered a more severe failure: Whisper identified the speech as a non-English language and generated non-English output.
+A subset of accented-English clips triggered a more severe failure: Whisper produced output consistent with a non-English decoding decision rather than an ordinary transcription error. This is inferred from output characteristics (non-Latin script, or a small set of Malay/Indonesian markers), not from Whisper's internal language-identification decision directly, so the rate below is a heuristic proxy rather than a ground-truth label.
 
-| Accent              | Language misidentification rate |
-| ------------------- | ------------------------------: |
-| Singaporean English |                      13.1–13.3% |
-| Filipino            |                            1.0% |
-| South Asian         |                          0–1.0% |
-| German              |                              0% |
-| Hong Kong English   |                              0% |
-| Southern African    |                              0% |
+| Accent              | Whisper-base | Whisper-small |
+| ------------------- | -----------: | ------------: |
+| Singaporean English |        14.3% |         13.1% |
+| Filipino            |         1.0% |          1.0% |
+| South Asian         |         1.0% |          0.0% |
+| German              |         0.0% |          0.0% |
+| Hong Kong English   |         0.0% |          1.0% |
+| Southern African    |         0.0% |          1.0% |
 
-The Singaporean-English failure rate remained essentially unchanged between Whisper-base and Whisper-small.
+Singaporean English's rate is far higher than every other group under both model sizes, and does not meaningfully improve with the larger model.
 
 ### Forced-English Recovery
 
-For the 14 Singaporean clips that triggered language misidentification, forcing English reduced mean WER from:
+For the 14 Singaporean clips that triggered the language-misidentification heuristic, forcing English reduced mean WER from:
 
-**1.044 → 0.266**
+**1.091 → 0.242**
 
-This represents approximately a **75% relative reduction in WER**.
+This represents a **77.8% relative reduction** in WER.
 
 Two of the 14 clips went from complete failure to perfect transcription.
 
-This suggests that at least some of these failures originate in language identification rather than an inability to transcribe the accent itself.
+This suggests that at least some of these failures originate in language selection rather than an inability to transcribe the accent itself.
 
----
+## Track 2 — Hindi-English Code-Switching
 
-# Track 2 — Hindi-English Code-Switching
-
-AccentBench also evaluates Hindi-English code-switched speech using the [MUCS 2021 dataset](https://www.openslr.org/104/).
+AccentBench also evaluates Hindi-English code-switched speech using the MUCS 2021 dataset.
 
 A suitable public Urdu-English speech corpus was not identified for the initial benchmark, so Hindi-English was used as a linguistically related proxy for the Urdu-English use case.
 
-Hindi and Urdu are closely related at the spoken-language level, but they are **not interchangeable**.
+Hindi and Urdu are closely related at the spoken-language level, but they are not interchangeable.
 
 The original code-switching experiment evaluated:
 
@@ -146,7 +144,7 @@ The original code-switching experiment evaluated:
 
 These results indicate that code-switched speech can be substantially more difficult than the individual accent groups evaluated in Track 1.
 
-## Transliteration Pattern
+### Transliteration Pattern
 
 A recurring failure mode was the phonetic rendering of embedded English terms into the script associated with the other language.
 
@@ -156,13 +154,11 @@ This distinction matters because a transcription can remain partially understand
 
 A separate hallucination pattern was also observed, where generated content was not supported by the source audio.
 
-Because the transliteration and hallucination measurements rely partly on heuristic analysis, these should be treated as **exploratory error-analysis results rather than definitive population estimates**.
+Because the transliteration and hallucination measurements rely partly on heuristic analysis, these should be treated as exploratory error-analysis results rather than definitive population estimates.
 
----
+## Track 3 — HiKE Korean-English Code-Switching
 
-# Track 3 — HiKE Korean-English Code-Switching
-
-The latest AccentBench experiment evaluates **Korean-English code-switched speech** using 100 clips from the HiKE benchmark.
+The latest AccentBench experiment evaluates Korean-English code-switched speech using 100 clips from the HiKE benchmark.
 
 Four conditions were evaluated:
 
@@ -171,154 +167,152 @@ Four conditions were evaluated:
 * Whisper-small + automatic language detection
 * Whisper-small + forced Korean
 
-All **100 clips successfully completed all four conditions**, producing **400 transcription results**.
+All 100 clips successfully completed all four conditions, producing 400 transcription results.
 
-## Overall Results
+### Overall Results
 
-| Experiment      | Model     | Language mode |   Mean WER | Median WER |
-| --------------- | --------- | ------------- | ---------: | ---------: |
-| **small_auto**  | **small** | **automatic** | **0.4209** | **0.3333** |
-| base_auto       | base      | automatic     |     0.5648 |     0.5714 |
-| small_forced_ko | small     | forced Korean |     0.6216 |     0.6250 |
-| base_forced_ko  | base      | forced Korean |     0.6729 |     0.6340 |
+| Experiment      | Model | Language mode | Mean WER | Median WER |
+| --------------- | ----- | ------------- | -------: | ---------: |
+| small_auto      | small | automatic     |   0.4209 |     0.3333 |
+| base_auto       | base  | automatic     |   0.5648 |     0.5714 |
+| small_forced_ko | small | forced Korean |   0.6216 |     0.6250 |
+| base_forced_ko  | base  | forced Korean |   0.6729 |     0.6340 |
 
 Whisper-small with automatic language detection was the best-performing configuration.
 
-## Code-Switching Level
+### Code-Switching Level
 
 For the best configuration:
 
-| Level    | Clips |   Mean WER |
-| -------- | ----: | ---------: |
-| Word     |    41 | **0.3458** |
-| Sentence |     6 |     0.4107 |
-| Phrase   |    53 | **0.4802** |
+| Level    | Clips | Mean WER |
+| -------- | ----: | -------: |
+| Word     |    41 |   0.3458 |
+| Sentence |     6 |   0.4107 |
+| Phrase   |    53 |   0.4802 |
 
 Phrase-level switching produced the highest WER.
 
 The sentence-level result should be interpreted cautiously because only six clips were available.
 
-## Domain Performance
+### Domain Performance
 
 Under Whisper-small + automatic language detection:
 
-| Domain                |   Mean WER |
-| --------------------- | ---------: |
-| Travel and culture    | **0.2335** |
-| Entertainment         |     0.3562 |
-| Academic              |     0.3862 |
-| Language education    |     0.4128 |
-| Software development  |     0.4533 |
-| Medical               |     0.4707 |
-| Everyday conversation |     0.4929 |
-| Business              |     0.4975 |
+| Domain                | Mean WER |
+| --------------------- | -------: |
+| Travel and culture    |   0.2335 |
+| Entertainment         |   0.3562 |
+| Academic              |   0.3862 |
+| Language education    |   0.4128 |
+| Software development  |   0.4533 |
+| Medical               |   0.4707 |
+| Everyday conversation |   0.4929 |
+| Business              |   0.4975 |
 
 Travel and culture produced the lowest WER, while business and everyday-conversation samples were among the more difficult categories.
 
 These values describe this benchmark's sampled domains and should not be interpreted as general domain rankings for Korean ASR.
 
-## English Token Preservation
+### English Token Preservation
 
 English-token preservation provides another perspective on code-switching robustness.
 
 | Experiment      | English token preservation |
 | --------------- | -------------------------: |
-| **small_auto**  |                  **72.6%** |
+| small_auto      |                      72.6% |
 | base_auto       |                      56.9% |
 | base_forced_ko  |                      36.4% |
 | small_forced_ko |                      27.7% |
 
 The strong reduction under forced Korean is consistent with the qualitative errors observed in the transcriptions: English terms are frequently rendered using Korean phonetic approximations or replaced entirely.
 
-### Example
+#### Example
 
-**Reference:**
+Reference:
 
-> `pull request 올리기 전에 test case 한 번 더 체크해 봐.`
+```text
+pull request 올리기 전에 test case 한 번 더 체크해 봐.
+```
 
-**Observed output:**
+Observed output:
 
-> `풀 리켓을 올리기 전에 테스트 케이스 한 번 더 체크해봐`
+```text
+풀 리켓을 올리기 전에 테스트 케이스 한 번 더 체크해봐
+```
 
 The output preserves the general content but converts English terms into Korean-script phonetic representations.
 
 This illustrates why WER and language-specific token preservation capture different aspects of code-switching robustness.
 
----
-
-# Track 4 — Language Conditioning: Urdu vs Korean
+## Track 4 — Language Conditioning: Urdu vs Korean
 
 The fourth track investigates whether explicitly specifying the expected language improves Whisper transcription accuracy.
 
 Two Whisper model sizes were evaluated under:
 
-1. **Automatic** — Whisper determines the language.
-2. **Forced** — the expected language is explicitly supplied.
+* **Automatic** — Whisper determines the language.
+* **Forced** — the expected language is explicitly supplied.
 
-## Urdu
+### Urdu
 
-The final Urdu comparison contains **80 matched clips** for which all four conditions produced valid WER values.
+The final Urdu comparison contains 80 matched clips for which all four conditions produced valid WER values.
 
 | Model         | Automatic WER | Forced Urdu WER | Relative improvement |
 | ------------- | ------------: | --------------: | -------------------: |
-| Whisper-base  |        0.6855 |          0.5821 |            **15.1%** |
-| Whisper-small |        0.8473 |          0.3984 |            **53.0%** |
+| Whisper-base  |        0.6855 |          0.5821 |                15.1% |
+| Whisper-small |        0.8473 |          0.3984 |                53.0% |
 
 Forcing Urdu substantially improved performance, particularly for Whisper-small.
 
-## Korean
+### Korean
 
-The earlier Korean language-conditioning evaluation used **100 clips from the Zeroth Korean test set**, sampled across 10 speakers.
+The earlier Korean language-conditioning evaluation used 100 clips from the Zeroth Korean test set, sampled across 10 speakers.
 
 | Model         | Automatic WER | Forced Korean WER | Relative improvement |
 | ------------- | ------------: | ----------------: | -------------------: |
-| Whisper-base  |        0.4737 |            0.4726 |            **0.23%** |
-| Whisper-small |        0.3791 |            0.3791 |            **0.00%** |
+| Whisper-base  |        0.4737 |            0.4726 |                0.23% |
+| Whisper-small |        0.3791 |            0.3791 |                0.00% |
 
 Whisper automatically identified Korean on all 100 clips.
 
 For Whisper-small, automatic and forced decoding produced identical predictions on all 100 clips.
 
-## Cross-Language Finding
+### Cross-Language Finding
 
 The contrast between Urdu and the earlier Korean evaluation demonstrates that language conditioning does not have a universal effect.
 
 | Language | Base improvement | Small improvement |
 | -------- | ---------------: | ----------------: |
-| Urdu     |        **15.1%** |         **53.0%** |
-| Korean   |        **0.23%** |         **0.00%** |
+| Urdu     |            15.1% |             53.0% |
+| Korean   |            0.23% |             0.00% |
 
-However, the two evaluations involve different datasets and speech conditions, so this comparison should be treated as evidence of a **dataset- and language-dependent effect**, not as a controlled causal comparison between Urdu and Korean.
+However, the two evaluations involve different datasets and speech conditions, so this comparison should be treated as evidence of a dataset- and language-dependent effect, not as a controlled causal comparison between Urdu and Korean.
 
----
-
-# Figures
+## Figures
 
 The latest HiKE analysis produces five figures.
 
-### Overall WER
+**Overall WER**
 
 ![Overall WER](results/hike_analysis/figures/01_overall_wer.png)
 
-### WER by Code-Switching Level
+**WER by Code-Switching Level**
 
 ![WER by code-switching level](results/hike_analysis/figures/02_wer_by_codeswitching_level.png)
 
-### WER by Domain
+**WER by Domain**
 
 ![WER by domain](results/hike_analysis/figures/03_wer_by_category.png)
 
-### English Token Preservation
+**English Token Preservation**
 
 ![English token preservation](results/hike_analysis/figures/04_english_token_preservation.png)
 
-### Automatic vs Forced Korean
+**Automatic vs Forced Korean**
 
 ![Automatic vs forced Korean](results/hike_analysis/figures/05_auto_vs_forced_korean.png)
 
----
-
-# Dashboard
+## Dashboard
 
 An interactive Streamlit dashboard presents the original AccentBench evaluation tracks with charts, raw-data tables, and an upload-your-own-clip demonstration.
 
@@ -328,34 +322,32 @@ Run locally with:
 streamlit run src/dashboard.py
 ```
 
----
+## Methodology
 
-# Methodology
+### Models
 
-## Models
-
-* OpenAI Whisper `base`
-* OpenAI Whisper `small`
+* OpenAI Whisper base
+* OpenAI Whisper small
 * Inference performed locally using the `openai-whisper` Python package
 * Experiments were performed using CPU inference
 
-## Accent Data
+### Accent Data
 
-The accent evaluation uses [DTU54DL/common-accent](https://huggingface.co/datasets/DTU54DL/common-accent).
+The accent evaluation uses DTU54DL/common-accent.
 
 * 6 accent groups
 * 100 samples per group
 * 600 utterances total
 
-## Hindi-English Code-Switching Data
+### Hindi-English Code-Switching Data
 
-The code-switching evaluation uses the [MUCS 2021 Hindi-English dataset](https://www.openslr.org/104/).
+The code-switching evaluation uses the MUCS 2021 Hindi-English dataset.
 
 * 100 sampled utterances
 * Fixed sampling seed for reproducibility
 * Hindi-English used as a proxy for the Urdu-English use case
 
-## Korean-English Code-Switching Data
+### Korean-English Code-Switching Data
 
 The HiKE experiment evaluates:
 
@@ -365,13 +357,13 @@ The HiKE experiment evaluates:
 * Whisper-base and Whisper-small
 * Automatic and forced Korean language settings
 
-## Language-Conditioning Data
+### Language-Conditioning Data
 
 The Urdu experiment uses 80 matched clips across all four conditions.
 
 The earlier Korean language-conditioning experiment uses 100 Zeroth Korean clips sampled across 10 speakers.
 
-## Metric
+### Metric
 
 Word Error Rate (WER) was calculated using `jiwer`.
 
@@ -381,22 +373,23 @@ For language-conditioning experiments:
 
 ```text
 Relative improvement =
+
 (Automatic WER - Forced WER)
+
 ----------------------------- × 100
-       Automatic WER
+
+Automatic WER
 ```
 
----
+## Reproducibility
 
-# Reproducibility
-
-## Install Dependencies
+### Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Run the Accent Benchmark
+### Run the Accent Benchmark
 
 ```bash
 python src/explore_data.py
@@ -404,23 +397,23 @@ python src/run_inference.py
 python src/analyze_errors.py
 ```
 
-## Run the Dashboard
+### Run the Dashboard
 
 ```bash
 streamlit run src/dashboard.py
 ```
 
-## Run the Language-Conditioning Analysis
+### Run the Language-Conditioning Analysis
 
 ```bash
 python src/final_analysis.py
 ```
 
-## Run the HiKE Korean-English Benchmark
+### Run the HiKE Korean-English Benchmark
 
 See the corresponding scripts in `src/` for dataset preparation, inference, analysis, and figure generation.
 
-## Generate the HiKE Figures
+### Generate the HiKE Figures
 
 ```bash
 python src/make_hike_figures.py
@@ -432,9 +425,7 @@ Generated figures are written to:
 results/hike_analysis/figures/
 ```
 
----
-
-# Limitations
+## Limitations
 
 AccentBench is intentionally small and exploratory. The results should not be interpreted as definitive measurements of Whisper's global multilingual robustness.
 
@@ -444,17 +435,16 @@ Important limitations include:
 * The South Asian accent category combines Indian, Pakistani, and Sri Lankan English.
 * No suitable public Urdu-English code-switching corpus was identified for the initial benchmark, so Hindi-English was used as a proxy.
 * The transliteration analysis relies partly on heuristic methods.
+* The language-misidentification rate is a heuristic proxy (non-Latin script and a small set of Malay/Indonesian markers), not Whisper's internal language-identification output observed directly.
 * The HiKE Korean-English experiment contains only 100 clips.
 * The sentence-level HiKE analysis contains only six samples.
 * The Korean language-conditioning and HiKE experiments use different datasets and should not be treated as a controlled comparison.
-* Only Whisper-base and Whisper-small were evaluated.
-* Larger Whisper models may behave differently.
+* Only Whisper-base and Whisper-small were evaluated. Larger Whisper models may behave differently.
 * Experiments were performed using CPU-only inference.
 * WER alone does not capture every aspect of multilingual or code-switched transcription quality.
+* Speaker independence within the accent track (Track 1) is not established, since speaker identifiers were not retained in the released metadata.
 
----
-
-# Future Work
+## Future Work
 
 Potential extensions include:
 
@@ -470,14 +460,18 @@ Potential extensions include:
 * Compare Whisper against newer multilingual ASR models.
 * Add confidence calibration and language-identification accuracy as separate evaluation metrics.
 
----
-
-# Project Structure
+## Project Structure
 
 ```text
 AccentBench/
 │
 ├── data/                         # datasets (not committed)
+│
+├── docs/
+│   ├── AccentBench_Paper.md
+│   ├── AccentBench_Paper.pdf
+│   ├── methodology.md
+│   └── findings_limitations.md
 │
 ├── src/
 │   ├── explore_data.py
@@ -519,10 +513,6 @@ AccentBench/
 │       ├── best_examples.csv
 │       └── worst_examples.csv
 │
-├── docs/
-│   ├── methodology.md
-│   └── findings_limitations.md
-│
 ├── screenshots/
 │
 ├── requirements.txt
@@ -530,12 +520,10 @@ AccentBench/
 └── README.md
 ```
 
----
-
-# License
+## License
 
 This project uses datasets and resources subject to their respective licenses.
 
-The Zeroth Korean dataset is available under **CC BY 4.0**.
+The Zeroth Korean dataset is available under CC BY 4.0.
 
 Dataset licenses should be reviewed independently before redistribution of any downloaded dataset files.
