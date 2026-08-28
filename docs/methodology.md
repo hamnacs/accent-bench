@@ -49,9 +49,9 @@ All 100 Korean clips produced successful results in all four experimental condit
 
 Transcription quality was measured using **Word Error Rate (WER)**:
 
-[
+$$
 WER = \frac{S + D + I}{N}
-]
+$$
 
 where:
 
@@ -88,11 +88,11 @@ Three visualizations were generated:
 
 Relative improvement was calculated as:
 
-[
+$$
 Improvement =
 \frac{WER_{automatic} - WER_{forced}}
 {WER_{automatic}}
 \times 100
-]
+$$
 
 All experiments were performed locally using the project Python environment. Whisper inference was performed on CPU.
