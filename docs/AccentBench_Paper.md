@@ -118,7 +118,7 @@ Table 2 reports mean WER per accent group for both model sizes. These six groups
 
 Scaling from Whisper-base to Whisper-small reduced WER for every accent group except Singaporean English, where performance was essentially flat (0.410 to 0.410). Note that the South Asian category here combines Indian, Pakistani, and Sri Lankan English; it is not a Pakistani-English-specific result. Singaporean English stands out as an outlier: its WER is roughly double that of every other accent group under both model sizes, and it is the only group that does not improve with the larger model. Section 5.1.1 investigates why.
 
-![Mean WER by accent group, Whisper-base versus Whisper-small. Singaporean English is the only group that does not improve with the larger model.](figures/fig5_accent_wer.png)
+![Mean WER by accent group, Whisper-base versus Whisper-small. Singaporean English is the only group that does not improve with the larger model.](figures/fig5_accent_wer.png){width=85%}
 
 #### 5.1.1 Likely Language Misidentification
 
@@ -135,7 +135,7 @@ A subset of accented-English clips triggered a more severe failure than ordinary
 | Hong Kong English | 0.0% | 1.0% |
 | Southern African | 0.0% | 1.0% |
 
-![Language-misidentification heuristic rate by accent group. Singaporean English is 13 to 14 times higher than any other group in this sample.](figures/fig6_misid_rate.png)
+![Language-misidentification heuristic rate by accent group. Singaporean English is 13 to 14 times higher than any other group in this sample.](figures/fig6_misid_rate.png){width=85%}
 
 Singaporean English triggers our language-misidentification heuristic at 13-14 times the rate of every other accent group, and the rate barely moves between model sizes. That points toward an explanation for the anomaly in Table 2: Singaporean English's elevated, scale-resistant WER may be driven mainly by a language-selection failure rather than by acoustic difficulty alone, since a bigger model does nothing to fix it. We do not treat this as proven; the forced-English experiment below tests it more directly, though it too works from the same flagged subset rather than an independent confirmation.
 
@@ -178,7 +178,7 @@ All 100 HiKE clips successfully completed all four experimental conditions, yiel
 
 Two effects are visible in Table 6. Scaling from Whisper-base to Whisper-small under automatic detection reduces mean WER by 25.5% relative, which is expected. What is more surprising is that forcing Korean explicitly *increases* WER relative to automatic detection: by 32.3% relative for Whisper-small (0.4209 to 0.6216) and 16.1% relative for Whisper-base (0.5648 to 0.6729). For Whisper-small, the paired per-clip increase from forcing Korean was 0.201 WER (95% bootstrap CI [0.131, 0.276], n = 100), well clear of zero, so this isn't a fluke driven by a handful of clips. This runs opposite to the Track 1 forced-English recovery result and the Track 4 Urdu result (Section 5.4). We don't read it as evidence that automatic detection beats forcing in general; it looks specific to this Korean-English code-switched dataset, where forcing a single language may work against a model trying to represent content that legitimately contains both languages. One plausible mechanism, not tested directly here: Whisper's automatic detection may be responding to whichever language dominates a given clip, so forcing Korean on a clip that's decodably English-heavy could push the decoder away from the correctly-cased English output it would otherwise produce. We leave testing that mechanism for future work (Section 9) rather than claiming it here.
 
-![Overall WER across the four experimental conditions in Track 3 (n = 100 clips per bar). Automatic detection outperforms forced Korean for both model sizes.](figures/fig1_hike_overall_wer.png)
+![Overall WER across the four experimental conditions in Track 3 (n = 100 clips per bar). Automatic detection outperforms forced Korean for both model sizes.](figures/fig1_hike_overall_wer.png){width=85%}
 
 #### 5.3.1 Effect of Code-Switching Granularity
 
@@ -194,7 +194,7 @@ The HiKE benchmark labels each clip's code-switching level. Table 7 reports WER 
 
 In this sample, phrase-level code-switching, where a contiguous multi-word phrase switches language within the utterance, produced the highest WER, followed by sentence-level and then word-level switching. This ordering is a sample-level finding, not a claim about code-switching difficulty in general; the sentence-level result in particular is based on only six clips and is included for completeness rather than as a robust estimate.
 
-![Mean WER by code-switching level (word, sentence, phrase), Whisper-small under automatic detection. Clip counts per level: word n = 41, sentence n = 6, phrase n = 53.](figures/fig2_hike_cs_level.png)
+![Mean WER by code-switching level (word, sentence, phrase), Whisper-small under automatic detection. Clip counts per level: word n = 41, sentence n = 6, phrase n = 53.](figures/fig2_hike_cs_level.png){width=85%}
 
 #### 5.3.2 Domain Effects
 
@@ -228,7 +228,7 @@ Overall WER treats a code-switched utterance as a single sequence and does not d
 
 The pattern mirrors the overall WER result in Table 6: automatic detection substantially outperforms forced Korean on this metric as well, and the gap is larger for token preservation than for WER (Whisper-small automatic preserves 72.6% of English tokens versus only 27.7% under forced Korean, a 44.9 percentage-point gap). Qualitatively, the dominant failure mode under forced Korean is that embedded English terms are rendered as Korean-script phonetic approximations of their pronunciation rather than being transcribed in Latin script. For example, a reference containing the English terms "pull request," "test case," and "check" was transcribed under forced Korean with all three terms converted to Korean-script phonetic renderings, while the surrounding Korean content remained largely intact. This illustrates why WER alone, which does not distinguish a script-conversion error from an equivalently-scored acoustic mistranscription, understates the practical severity of this particular failure mode: a phonetically converted English term is often unusable downstream (e.g., in a transcript intended for search or command extraction) even though it may contribute a similar WER penalty to an ordinary substitution error.
 
-![Proportion of reference English tokens surviving as recognizable English tokens in the Whisper hypothesis, by model size and language-detection condition.](figures/fig3_token_preservation.png)
+![Proportion of reference English tokens surviving as recognizable English tokens in the Whisper hypothesis, by model size and language-detection condition.](figures/fig3_token_preservation.png){width=85%}
 
 ### 5.4 Language Conditioning: Urdu versus Korean (Track 4)
 
@@ -243,7 +243,7 @@ The pattern mirrors the overall WER result in Table 6: automatic detection subst
 
 The contrast is stark. Forcing Urdu produces a substantial improvement for both model sizes, and the effect is far larger for Whisper-small (53.0% relative reduction, paired difference 0.449 WER, 95% bootstrap CI [0.366, 0.534], n = 80) than for Whisper-base (15.1% relative reduction, paired difference 0.103 WER, 95% bootstrap CI [0.036, 0.167], n = 80); both intervals exclude zero. Forcing Korean, by contrast, produces almost no change for Whisper-base (0.23%) and produces exactly zero change for Whisper-small: automatic and forced decoding produced identical predictions on all 100 Korean clips (verified string-for-string, not merely equal WER, by directly comparing the two prediction columns row by row), indicating Whisper already identified Korean correctly on every clip in this sample before any language was forced. Because every prediction was identical, the paired difference for Whisper-small Korean is exactly 0.0000 with a degenerate (zero-width) bootstrap interval, which is the expected result of a null effect rather than a modeling artifact.
 
-![Mean WER under automatic versus forced-language decoding, Urdu and Korean, both model sizes. Urdu shows a large, model-size-dependent improvement from forcing; Korean shows essentially none.](figures/fig4_language_forcing_urdu_korean.png)
+![Mean WER under automatic versus forced-language decoding, Urdu and Korean, both model sizes. Urdu shows a large, model-size-dependent improvement from forcing; Korean shows essentially none.](figures/fig4_language_forcing_urdu_korean.png){width=85%}
 
 An additional model-size interaction is notable within Urdu: under automatic detection, Whisper-base (0.6855) actually outperforms Whisper-small (0.8473), the opposite of the ordering seen in Tracks 1 and 3. Once Urdu is forced, this reverses and Whisper-small (0.3984) substantially outperforms Whisper-base (0.5821). This suggests Whisper-small may be more prone to *misidentifying* Urdu specifically under automatic detection (plausibly toward a closely related language such as Hindi, given their shared spoken-level similarity discussed in Section 3.1), even though it has the stronger underlying acoustic model once given the correct language.
 
