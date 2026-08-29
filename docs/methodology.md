@@ -27,13 +27,13 @@ This produces four experimental conditions per language:
 
 ## Urdu Evaluation
 
-The Urdu experiments used a manually selected 100-clip benchmark from the Urdu speech data used in AccentBench.
+The Urdu experiments used a 100-clip sample drawn from the UrduSpeech US-benchmark set, a published 156-hour Urdu speech corpus with paralinguistic annotations. This resource was identified after the Hindi-English proxy evaluation (Track 2) had already been built, and became the primary Urdu-specific dataset used in AccentBench from Track 4 onward.
 
 Each clip contained a reference transcription. The same clips were processed using Whisper Base and Whisper Small under both automatic and forced-Urdu conditions.
 
 Some clips failed during individual inference runs. To ensure a fair comparison between experimental conditions, the final Urdu comparison was restricted to clips for which all four experiments produced valid WER values.
 
-This resulted in **80 matched Urdu clips** for the final comparison.
+This resulted in 80 matched Urdu clips for the final comparison.
 
 ## Korean Evaluation
 
