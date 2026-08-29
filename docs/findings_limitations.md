@@ -60,7 +60,7 @@ The final comparison used **80 matched Urdu clips** and **100 Korean clips**. Th
 
 ### Urdu Benchmark Selection
 
-The Urdu benchmark was manually constructed and therefore may contain selection bias. The selected clips should not be treated as a statistically representative sample of all Urdu speech.
+The Urdu clips are a sample drawn from the published UrduSpeech corpus rather than a self-constructed dataset, which reduces (but does not eliminate) selection-bias concerns relative to a manually assembled benchmark. The sampled clips should still not be treated as a statistically representative sample of all Urdu speech, since sampling was not stratified across speakers, domains, or dialects.
 
 ### Korean Dataset Scope
 
