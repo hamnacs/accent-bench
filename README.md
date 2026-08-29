@@ -255,7 +255,7 @@ Two Whisper model sizes were evaluated under:
 
 ### Urdu
 
-The final Urdu comparison contains 80 matched clips for which all four conditions produced valid WER values.
+The final Urdu comparison contains 80 matched clips, sampled from the UrduSpeech US-benchmark corpus, for which all four conditions produced valid WER values.
 
 | Model         | Automatic WER | Forced Urdu WER | Relative improvement |
 | ------------- | ------------: | --------------: | -------------------: |
