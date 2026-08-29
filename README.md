@@ -359,7 +359,7 @@ The HiKE experiment evaluates:
 
 ### Language-Conditioning Data
 
-The Urdu experiment uses 80 matched clips across all four conditions.
+The Urdu experiment uses 80 matched clips across all four conditions, sampled from the UrduSpeech US-benchmark set, a published 156-hour Urdu speech corpus. This resource was identified after the Hindi-English proxy evaluation (Track 2) had already been built.
 
 The earlier Korean language-conditioning experiment uses 100 Zeroth Korean clips sampled across 10 speakers.
 
@@ -448,7 +448,7 @@ Important limitations include:
 
 Potential extensions include:
 
-* Extend the benchmark to a publicly available Urdu-English speech corpus if a suitable dataset becomes available.
+* Identify or construct a dedicated Urdu-English code-switching corpus to replace the Hindi-English proxy used in Track 2. (UrduSpeech is now used for Track 4's language-conditioning evaluation, but does not cover code-switched speech.)
 * Supplement Urdu-English evaluation with a carefully documented self-recorded dataset.
 * Evaluate Whisper-medium and Whisper-large.
 * Add additional Korean-English and Urdu-English speakers.
@@ -525,5 +525,7 @@ AccentBench/
 This project uses datasets and resources subject to their respective licenses.
 
 The Zeroth Korean dataset is available under CC BY 4.0.
+
+The UrduSpeech corpus is subject to its own license terms; review these independently before redistributing any downloaded UrduSpeech data.
 
 Dataset licenses should be reviewed independently before redistribution of any downloaded dataset files.
