@@ -3,4 +3,7 @@ jiwer
 datasets
 streamlit
 pandas
+numpy
 soundfile
+plotly
+matplotlib

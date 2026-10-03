@@ -1,0 +1,7 @@
+comparison,difference,n,mean_difference,ci_low,ci_high,n_boot,seed,rng,ci_method
+"Track 1: Singaporean, original minus forced English",original - forced_en,14,0.8489060542631972,0.7524487912880773,0.942952806122449,10000,42,np.random.RandomState,percentile
+"Track 2: Hindi-English proxy, Base minus Small",base - small,97,0.08212697835267854,-0.02698525326528286,0.17711732653287413,10000,42,np.random.RandomState,percentile
+"Track 3: HiKE Small, forced Korean minus automatic",forced_ko - auto,100,0.20066624275391917,0.1294256250548967,0.273602932590107,10000,42,np.random.RandomState,percentile
+"Track 4: Urdu Base, automatic minus forced",auto - forced,80,0.1033883473493448,0.0366295309213408,0.1663372522085757,10000,42,np.random.RandomState,percentile
+"Track 4: Urdu Small, automatic minus forced",auto - forced,80,0.4489435746674039,0.36531245349913566,0.536126050966971,10000,42,np.random.RandomState,percentile
+"Track 4: Korean Small, automatic minus forced",auto - forced,100,0.0,0.0,0.0,10000,42,np.random.RandomState,percentile
